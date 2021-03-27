@@ -1,13 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 public class EncounterUI : MonoBehaviour
 {
     // Start is called before the first frame update
     GameObject attackButton;
     GameObject talkButton;
+    public GameObject convoMenu;
     GameObject[] characters;
+    bool talkMode = false;
+    
+
+    public string playerSpeech;
+    public TextMeshProUGUI inputField;
+
+    public void sendInput() {
+        playerSpeech = inputField.text;
+        inputField.text = "aa";
+    }
     void Start()
     {
         attackButton = GameObject.Find("AttackButton");
@@ -36,5 +48,7 @@ public class EncounterUI : MonoBehaviour
     public void onTalk()
     {
         hideButtons();
+        talkMode = true;
+        convoMenu.SetActive(true);
     }
 }
