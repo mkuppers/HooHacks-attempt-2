@@ -670,7 +670,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &695944405
 AudioListener:
   m_ObjectHideFlags: 0
@@ -730,7 +730,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695944404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1031,6 +1031,7 @@ MonoBehaviour:
   convoMenu: {fileID: 1296259377}
   success: {fileID: 2130253043}
   shroom: {fileID: 0}
+  talkMenu: {fileID: 1296259377}
   playerSpeech: 
   inputField: {fileID: 1384739911}
 --- !u!114 &862664356
@@ -2417,7 +2418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1926586686
 Transform:
   m_ObjectHideFlags: 0
