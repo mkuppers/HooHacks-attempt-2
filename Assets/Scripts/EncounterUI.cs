@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -11,9 +12,10 @@ public class EncounterUI : MonoBehaviour
     GameObject talkButton;
     public GameObject convoMenu;
     GameObject[] characters;
+    public GameObject success;
     bool talkMode = false;
     public OAICharacter shroom;
-
+    int counter = 0;
 
     public string playerSpeech;
     public TextMeshProUGUI inputField;
@@ -24,7 +26,16 @@ public class EncounterUI : MonoBehaviour
         shroom.AddToStory(playerSpeech);
         inputField.text = "";
         //field.text = "";
+        counter++;
+        if (counter >= 5) {
+            success.transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
+
+    public void loadMenu() {
+        SceneManager.LoadScene(1);
+    }
+
     void Start()
     {
         attackButton = GameObject.Find("AttackButton");

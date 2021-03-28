@@ -10,7 +10,8 @@ public class Enemy : MonoBehaviour
     public EncounterUI encount;
     public Material dmgMat;
     private Material ogMat;
-    private GameObject healthbar;   
+    private GameObject healthbar;
+    private GameObject success;
     public string characterName;
     public bool aggro = false;
     public float totalHealth = 100f;
@@ -25,6 +26,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         user = GameObject.Find("Player").GetComponent<Player>();
+        success = GameObject.Find("NoteParent");
         encount = GameObject.Find("Canvas").GetComponent<EncounterUI>();
         healthbar = this.transform.GetChild(0).GetChild(0).gameObject;
         healthBarSize = healthbar.transform.localScale;
@@ -84,9 +86,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void die() {
+    public void die() {
         user.experience += exp;
-        user.doneWithEncounter();
+        success.transform.GetChild(0).gameObject.SetActive(true);
         Destroy(this.gameObject);
     }  
 }

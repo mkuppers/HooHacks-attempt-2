@@ -14,9 +14,9 @@ public class Player : MonoBehaviour
     public float currHealth = 100f;
     public float strength = 10f;
     public int experience = 0;
-    public int steps = 0;
+    public int totalSteps = 0;
     int encounters = 1;
-    public float timer;
+    public float timer = 0;
     public bool startRun;
     private float endDistPos = -85;
     private float startDistPos = -840;
@@ -33,7 +33,8 @@ public class Player : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "LoadInScene") {
             SceneManager.LoadScene(1);
         }
-        p = new Pedometer(onStep);        
+        p = new Pedometer(onStep);
+        onStep(0, 0);
         inUI = true;
     }
 
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour
             missionTitle = GameObject.Find("MissionTitle").GetComponent<TextMeshProUGUI>();
             dist = GameObject.Find("In").GetComponent<RectTransform>();
             inUI = true;
+            stepText.text = currentQuest.distance - totalSteps + "";
         }
         if (level == 2) {
             inUI = false;
@@ -60,7 +62,7 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {      
         if (startRun) {
             timer += Time.deltaTime;
             int minutes = (int) Mathf.Floor(timer / 60);
@@ -70,14 +72,14 @@ public class Player : MonoBehaviour
                 timeUI.text = minutes.ToString("00") + ":" + seconds.ToString("00");
             }
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
-            SceneManager.LoadScene(2);
-        }
         if (redFlash) {
             if (redFlash.color.a >= 0) {
                 Color c = new Color(redFlash.color.r, redFlash.color.g, redFlash.color.b, redFlash.color.a - Time.deltaTime);
                 redFlash.color = c;
             }
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+            SceneManager.LoadScene(2);
         }
     }
 
@@ -90,6 +92,7 @@ public class Player : MonoBehaviour
     }
 
     public void onStep(int steps, double distance) {
+        totalSteps = steps;
         if (steps == 0 && distance == 0) {
             missionTitle.text = currentQuest.title;
             encounters = 1;
@@ -97,8 +100,8 @@ public class Player : MonoBehaviour
         if (inUI) {
             stepText.text = (currentQuest.distance - steps).ToString();
         }
-        dist.position = new Vector2(dist.position.x, dist.position.y + (endDistPos - startDistPos) * steps / currentQuest.distance);
-        if (steps / currentQuest.distance >= 1 / 3 * encounters) {
+        dist.position = new Vector2(dist.position.x, dist.position.y + (endDistPos - startDistPos) * (totalSteps / currentQuest.distance));
+        if (steps / currentQuest.distance >= (1 / 2) * currentQuest.distance * encounters && steps != 0) {
             encounters++;
             SceneManager.LoadScene(2);
         }

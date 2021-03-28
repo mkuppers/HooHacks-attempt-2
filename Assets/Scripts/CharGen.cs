@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharGen : MonoBehaviour
 {
-    public GameObject enemyController;
+    public List<GameObject> enemyController;
     string[] bodyParts = new string[] {"head", "face", "body"};
     string[] capStyles = {"under",
                           "straw",
@@ -66,7 +66,7 @@ public class CharGen : MonoBehaviour
         PackageSprites(mushChar);
 
         mushChar.transform.localScale = new Vector3(1, 1, 1);
-        GameObject character = Instantiate(enemyController, new Vector3(0,0,0), Quaternion.identity);
+        GameObject character = Instantiate(enemyController[(int)Random.Range(0, enemyController.Count)], new Vector3(0,0,0), Quaternion.identity);
         mushChar.transform.parent = character.transform;
         return character;
 
