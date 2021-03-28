@@ -20,7 +20,7 @@ public class EncounterUI : MonoBehaviour
     ///public InputField field;
 
     public void sendInput() {
-        playerSpeech = inputField.text;
+        playerSpeech = inputField.text;       
         shroom.AddToStory(playerSpeech);
         inputField.text = "";
         //field.text = "";
@@ -29,7 +29,8 @@ public class EncounterUI : MonoBehaviour
     {
         attackButton = GameObject.Find("AttackButton");
         talkButton = GameObject.Find("TalkButton");
-        characters = GameObject.FindGameObjectsWithTag("Character");
+        characters = GameObject.FindGameObjectsWithTag("AI");
+        shroom = GameObject.FindGameObjectWithTag("AI").GetComponent<OAICharacter>();
     }
 
     // Update is called once per frame
