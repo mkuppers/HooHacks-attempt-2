@@ -17,10 +17,13 @@ public class EncounterUI : MonoBehaviour
 
     public string playerSpeech;
     public TextMeshProUGUI inputField;
+    ///public InputField field;
 
     public void sendInput() {
         playerSpeech = inputField.text;
         shroom.AddToStory(playerSpeech);
+        inputField.text = "";
+        //field.text = "";
     }
     void Start()
     {
@@ -49,7 +52,7 @@ public class EncounterUI : MonoBehaviour
 
     public void onTalk()
     {
-        hideButtons();
+        talkButton.SetActive(false);
         talkMode = true;
         convoMenu.SetActive(true);
     }

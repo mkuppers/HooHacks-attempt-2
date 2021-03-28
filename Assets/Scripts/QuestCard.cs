@@ -43,9 +43,10 @@ public class QuestCard : MonoBehaviour
             detailed.SetActive(true);
             simple.SetActive(false);
             this.transform.position = new Vector3(Screen.width / 2, Screen.height / 2, 1);
-            this.transform.localScale = new Vector3(this.transform.localScale.x * 1.5f, this.transform.localScale.y * 1.5f, 1);
+            this.transform.localScale = new Vector3(this.transform.localScale.x * 2.5f, this.transform.localScale.y * 2.5f, 1);
             isClicked = true;
             this.GetComponent<Button>().interactable = false;
+            transform.SetAsLastSibling();
         }
         //else ignore
         else {
@@ -64,6 +65,10 @@ public class QuestCard : MonoBehaviour
 
     public void select()
     {
+        Player user = GameObject.Find("Player").GetComponent<Player>();
+        user.currentQuest = adventure;
+        user.startRun = true;
+        user.onStep(0, 0);
         close();
     }
 }

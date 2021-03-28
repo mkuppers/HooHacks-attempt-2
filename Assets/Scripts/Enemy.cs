@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour
     public float totalHealth = 100f;
     public float currHealth = 100f;
     public int exp = 5;
+    public int strength = 15;
+    public float timer;
+    public float attackTime = 3f;
 
     private Vector3 healthBarSize;
     // Start is called before the first frame update
@@ -26,12 +29,19 @@ public class Enemy : MonoBehaviour
         this.transform.GetChild(1).gameObject.GetComponent<TextMeshPro>().text = characterName;
 
         ogMat = this.gameObject.GetComponent<Renderer>().material;
+        timer = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (aggro) {
+            timer += Time.deltaTime;
+            if (timer >= attackTime) {
+                user.takeDmg(strength);
+                timer = 0;
+            }           
+        }
     }
 
     //Attacked

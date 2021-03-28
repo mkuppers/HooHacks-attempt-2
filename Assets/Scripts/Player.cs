@@ -17,9 +17,12 @@ public class Player : MonoBehaviour
     public int steps = 0;
     public float timer;
     public bool startRun;
+    private float endDistPos = -85;
+    private float startDistPos = -840;
+    public RectTransform dist, healthbar;
     Pedometer p;
-    public TextMeshProUGUI timeUI;
-    public Text stepText, distanceText;
+    public TextMeshProUGUI timeUI, stepText, missionTitle;
+    public Text distanceText;
 
     public Quest currentQuest;
     void Awake()
@@ -28,19 +31,19 @@ public class Player : MonoBehaviour
         p = new Pedometer(onStep);        
         inUI = true;
     }
-    /*
+    
     void OnSceneLoaded() {
         if (SceneManager.GetActiveScene().name == "PhoneUI")
         {
-            stepText = GameObject.Find("Steps").GetComponent<Text>();
+            stepText = GameObject.Find("Steps").GetComponent<TextMeshProUGUI>();
             distanceText = GameObject.Find("Distance").GetComponent<Text>();
-            //timeUI = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
+            timeUI = GameObject.Find("Timer").GetComponent<TextMeshProUGUI>();
             inUI = true;
         }
         else {
             inUI = false;
         }
-    }*/
+    }
 
     // Update is called once per frame
     void Update()
@@ -56,10 +59,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    void onStep(int steps, double distance) {
-        if (inUI) {
-            stepText.text = steps.ToString();
-            distanceText.text = (distance * 3.28084).ToString("F2") + " ft";
+    public void takeDmg(int dmg) {
+        currHealth -= dmg;
+        float healthDelta = currHealth / totalHealth;
+        healthbar.localScale = new Vector2(healthbar.localScale.x * healthDelta, healthbar.localScale.y);
+    }
+
+    public void onStep(int steps, double distance) {
+        if (steps == 0 && distance == 0) {
+            missionTitle.text = currentQuest.title;
         }
+        if (inUI) {
+            stepText.text = (currentQuest.distance - steps).ToString();
+        }
+        dist.position = new Vector2(dist.position.x, dist.position.y + (endDistPos - startDistPos) * steps / currentQuest.distance);
     }
 }
