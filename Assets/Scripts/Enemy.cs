@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public bool aggro = false;
     public float totalHealth = 100f;
     public float currHealth = 100f;
-    public float exp = 5f;
+    public int exp = 5;
 
     private Vector3 healthBarSize;
     // Start is called before the first frame update

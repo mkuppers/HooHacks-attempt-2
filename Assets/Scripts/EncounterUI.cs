@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using OpenAI_Unity;
 public class EncounterUI : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -11,14 +12,15 @@ public class EncounterUI : MonoBehaviour
     public GameObject convoMenu;
     GameObject[] characters;
     bool talkMode = false;
-    
+    public OAICharacter shroom;
+
 
     public string playerSpeech;
     public TextMeshProUGUI inputField;
 
     public void sendInput() {
         playerSpeech = inputField.text;
-        inputField.text = "aa";
+        shroom.AddToStory(playerSpeech);
     }
     void Start()
     {
